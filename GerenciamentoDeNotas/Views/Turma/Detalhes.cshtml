@@ -1,0 +1,70 @@
+﻿@model GerenciamentoDeNotas.Models.TurmaModel
+
+@{
+    ViewData["Title"] = $"Detalhes da turma: {@Model.Nome}";
+}
+
+
+<div>
+    <h1 class="display-7 text-center">Informações</h1>
+    <hr />
+    <dl class="row text" style="display: flex; flex-direction: column; align-items: center;">
+        <div style="display: flex; width: 100%; justify-content: center; align-items: center; margin-bottom: 10px;">
+            <dt style="margin-right: 10px;">
+                @Html.DisplayNameFor(model => model.Nome):
+            </dt>
+            <dd style="margin: 0;">
+                @Html.DisplayFor(model => model.Nome)
+            </dd>
+        </div>
+        <div style="display: flex; width: 100%; justify-content: center; align-items: center;">
+            <dt style="margin-right: 10px;">
+                @Html.DisplayNameFor(model => model.DataDeInicio):
+            </dt>
+            <dd style="margin: 0;">
+                @Html.DisplayFor(model => model.DataDeInicio)
+            </dd>
+        </div>
+    </dl>
+
+
+
+    </br>
+    <h1 class="display-7 text-center">Alunos matriculados nesta turma:</h1>
+    <table class="cell-border hover bg-white" width="100%"  id="TabelaUsuarios">
+        <thead class="bg-white">
+            <tr>
+                <th scope="col">Nome</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Alunos != null && Model.Alunos.Any())
+            {
+                foreach (AlunoModel aluno in Model.Alunos)
+                {
+                    <tr>
+                        <td>@aluno.Nome</td>
+                        <td>
+                            <div class="btn-group" role="group">
+                                <a role="button" class="btn btn-info" asp-route-id="@aluno.Id" asp-controller="Aluno" asp-action="DetalhesAluno">Visualizar Detalhes</a>
+                            </div>
+                            <div class="btn-group" role="group">
+                                <a role="button" class="btn btn-danger" asp-route-idAluno="@aluno.Id" asp-route-idTurma="@Model.Id" asp-controller="Turma" asp-action="RemoverAlunoDaTurma">Remover aluno</a>
+                            </div>
+                        </td>
+
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+
+</div>
+<br />
+<br />
+<div class="form-group d-flex justify-content-between">
+    <a asp-action="Editar" asp-route-id="@Model?.Id" class="btn btn-warning w-100 me-2">Editar Turma</a> |
+    <a asp-action="AdicionarAlunos" asp-route-id="@Model?.Id" class="btn btn-success w-100 me-2">Adicionar Alunos</a> |
+    <a asp-action="Index" class="btn btn-secondary w-100">Voltar a Listagem</a>
+</div>

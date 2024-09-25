@@ -1,0 +1,33 @@
+﻿@model List<MateriaProfessorModel>
+
+
+
+<div class="py-5">
+    <div class="container">
+        @if (Model.Any() == true)
+        {
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                @foreach (var turma in Model)
+                {
+                    <div class="col">
+                        <div class="card mx-3 my-3 p-2 text-center">
+                            <div class="card-header">
+                                <h5 class="card-title">@turma.Turma.Nome - @turma.Materia.Nome</h5>
+                            </div>
+                            <div class="card-body">
+                                <a class="btn btn-success w-100" asp-action="AcessarTurma" asp-controller="Professor" asp-route-id="@turma.Id">Acessar</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="container w-100">
+                <h1 class="text-lg-center">Não há salas cadastradas ao professor no momento!</h1>
+            </div>
+        }
+
+    </div>
+</div>

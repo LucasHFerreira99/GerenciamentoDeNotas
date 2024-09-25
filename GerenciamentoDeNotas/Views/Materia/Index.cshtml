@@ -1,0 +1,54 @@
+﻿@model IEnumerable<GerenciamentoDeNotas.Models.MateriaModel>
+
+@{
+    ViewData["Title"] = "Matéria";
+}
+
+<div class="text-center">
+
+    @if (TempData["MensagemSucesso"] != null)
+    {
+        <div class="alert alert-success" role="alert">
+            @TempData["MensagemSucesso"]
+            <button type="button" class="btn btn-danger btn-sm close-alert" arial-label="Close">X</button>
+        </div>
+    }
+    @if (TempData["MensagemErro"] != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            @TempData["MensagemErro"]
+            <button type="button" class="btn btn-danger btn-sm close-alert" arial-label="Close">X</button>
+        </div>
+    }
+    <br />
+
+    <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+        <a asp-action="CriarMateria" class="btn btn-success">Criar Nova Materia</a>
+    </div>
+    <br />
+    <h1 class="display-4">Listagem de Máterias</h1>
+    <table class="cell-border hover bg-white" width="100%" id="tabelaMateria">
+        <thead>
+            <tr>
+                <th class="text-center">
+                    @Html.DisplayNameFor(model => model.Nome)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="text-center">
+                        @Html.DisplayFor(modelItem => item.Nome)
+                    </td>
+                    <td class="text-center">
+                        <a asp-action="EditarMateria" asp-route-id="@item.Id" class="btn btn-warning">Editar</a> |
+                        <a asp-action="Deletar" asp-route-id="@item.Id" class="btn btn-danger">Deletar</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

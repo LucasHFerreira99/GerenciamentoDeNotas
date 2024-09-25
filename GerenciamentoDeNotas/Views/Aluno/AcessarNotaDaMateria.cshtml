@@ -1,0 +1,92 @@
+﻿@model GerenciamentoDeNotas.Models.NotaModel
+
+@{
+    ViewData["Title"] = "Detalhes da nota";
+}
+
+<h1 class="text-2xl font-bold mb-4 text-center">Detalhes da Nota de @Model.Materia.Materia.Nome</h1>
+
+<div class="bg-white shadow-md rounded-lg p-6">
+    <hr class="mb-5" />
+    <div id="graficos" class="col"></div>
+</div>
+<a asp-action="Index" class="btn btn-secondary w-100">Voltar a página inicial</a>
+
+<div class="mt-5">
+    @{
+        var notas = new List<double> { Model.Prova1, Model.Prova2, Model.Prova3, Model.Trabalho, Model.NotaTotal };
+    }
+    <script>
+        const notas = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(notas));
+
+        function desenharGrafico(canvasId, nota) {
+            const canvas = document.getElementById(canvasId);
+            const ctx = canvas.getContext('2d');
+            const raio = 90;
+            const centroX = canvas.width / 2;
+            const centroY = canvas.height / 2;
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            let maxNota = (canvasId === 'graficoTotal') ? 100 : (canvasId === 'grafico3' ? 10 : 30);
+            const porcentagem = nota / maxNota;
+            const angulo = porcentagem * 2 * Math.PI;
+
+            ctx.beginPath();
+            ctx.arc(centroX, centroY, raio, 0, 2 * Math.PI);
+            ctx.fillStyle = '#e0e0e0';
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.moveTo(centroX, centroY);
+            ctx.arc(centroX, centroY, raio, 0, angulo);
+            ctx.closePath();
+            ctx.fillStyle = '#00a200';
+            ctx.fill();
+
+            ctx.fillStyle = '#000';
+            ctx.font = '20px Arial';
+            ctx.fillText((canvasId === 'graficoTotal' ? `${nota} / 100` : (canvasId === 'grafico3' ? `${nota} / 10` : `${nota} / 30`)), centroX - 30, centroY + 7);
+        }
+
+        function criarGraficos() {
+            const graficosContainer = document.getElementById('graficos');
+            graficosContainer.className = 'card-group';
+            notas.forEach((nota, index) => {
+                const canvasId = (index === 4) ? 'graficoTotal' : `grafico${index}`;
+                const canvas = document.createElement('canvas');
+                canvas.id = canvasId;
+                canvas.width = 200;
+                canvas.height = 200;
+                canvas.className = "card-text";
+
+                const cardBody = document.createElement('div');
+                cardBody.className = 'card-body'; // Card styling
+                canvas.width = 200;
+                canvas.height = 200;
+
+
+                const cardHeader = document.createElement('div');
+                cardHeader.className = 'card-header fw-bold';
+                cardHeader.textContent = (index < 3 ? `Prova ${index + 1}:` : (index === 3 ? 'Trabalho:' : 'Total:'));
+
+                const card = document.createElement('div');
+                card.className = 'card border-secondary mb-3 text-center';
+                card.style.maxWidth = '18rem'; // Correção na sintaxe
+
+
+
+
+                cardBody.appendChild(canvas); // Adiciona o canvas ao cardBody
+                card.appendChild(cardHeader);
+                card.appendChild(cardBody); // Adiciona o cardBody ao card
+                graficosContainer.appendChild(card); // Adiciona o card ao contêiner de gráficos
+
+                desenharGrafico(canvasId, nota);
+            });
+        }
+
+        // Cria os gráficos ao carregar a página
+        criarGraficos();
+    </script>
+</div>

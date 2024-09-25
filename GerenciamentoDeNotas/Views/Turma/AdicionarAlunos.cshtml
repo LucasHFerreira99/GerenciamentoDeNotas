@@ -1,0 +1,45 @@
+﻿@model GerenciamentoDeNotas.DTOs.TurmaAlunoDto
+
+@{
+    ViewData["Title"] = "Adicionar Alunos a turma";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Adicionar alunos a turma</h1>
+    <table class="display" width="100%" id="TabelaAlunoTurma">
+        <thead>
+            <tr>
+                <th scope="col" class="text-center">Nome</th>
+                <th scope="col" class="text-center"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Alunos != null && Model.Alunos.Any())
+            {
+                foreach (AlunoModel aluno in Model.Alunos)
+                {
+                    <tr>
+                        <td>@aluno.Nome</td>
+                        <td>
+                            <div class="btn-group" role="group">
+                                <a role="button" class="btn btn-success"
+                                   asp-route-idAluno="@aluno.Id"
+                                   asp-route-idTurma="@Model.idTurma"
+                                   asp-controller="Turma"
+                                   asp-action="AdicionarAlunosATurma">
+                                    +
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+    <br />
+
+   
+<div class="form-group d-flex justify-content-between">
+        <a asp-action="Detalhes" asp-route-id="@Model.idTurma" class="btn btn-secondary w-100">Voltar a Listagem</a>
+    </div>
+</div>

@@ -1,0 +1,54 @@
+﻿@{
+    ViewData["Title"] = "Página Inicial";
+}
+<div class="py-5 d-flex align-items-center" style="min-height: 60vh;">
+    <div class="container">
+        <h1 class="text-center mb-5">Selecione a área que deseja acessar:</h1>
+        <div class="row row-cols-2 row-cols-md-4 g-4">
+            <div class="col">
+                <div class="card border-secondary mb-3 text-center bg-success text-white" style="max-width: 50rem;">
+                    <div class="card-header fw-bold">Usuários</div>
+                    <div class="card-body text-white">
+                        <br />
+                        <a class="btn btn-light w-100" asp-area="" asp-controller="Usuario" asp-action="Index">Acessar</a>
+                        <br />
+                        <br />
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card border-secondary mb-3 text-center bg-success text-white" style="max-width: 50rem;">
+                    <div class="card-header fw-bold">Matérias</div>
+                    <div class="card-body text-white">
+                        <br />
+                        <a class="btn btn-light w-100" asp-area="" asp-controller="Materia" asp-action="Index">Acessar</a>
+                        <br />
+                        <br />
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card border-secondary mb-3 text-center bg-success text-white" style="max-width: 50rem;">
+                    <div class="card-header fw-bold">Turmas</div>
+                    <div class="card-body text-white">
+                        <br />
+                        <a class="btn btn-light w-100" asp-area="" asp-controller="Turma" asp-action="Index">Acessar</a>
+                        <br />
+                        <br />
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card border-secondary mb-3 text-center bg-success text-white" style="max-width: 50rem;">
+                    <div class="card-header fw-bold">Gerenciar Professores</div>
+                    <div class="card-body text-white">
+                        <br />
+                        <a class="btn btn-light w-100" asp-area="" asp-controller="MateriaProfessor" asp-action="Index">Acessar</a>
+                        <br />
+                        <br />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

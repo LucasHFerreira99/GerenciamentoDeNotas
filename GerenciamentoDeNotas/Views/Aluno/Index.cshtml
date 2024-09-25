@@ -1,0 +1,39 @@
+﻿@model List<GerenciamentoDeNotas.Models.NotaModel>
+
+@{
+    ViewData["Title"] = "Página Inicial";
+}
+
+
+<div class="py-5">
+    <div class="container">
+        @if (Model.Any() == true)
+        {
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                @foreach (NotaModel nota in Model)
+                {
+                    <div class="col">
+                        <div class="card border-secondary mb-3 text-center bg-success text-white" style="max-width: 18rem;">
+                            <div class="card-header fw-bold">@nota.Materia.Materia.Nome</div>
+                            <div class="card-body text-white">
+                                <p class="card-title">Prova 1: @nota.Prova1 pts</p>
+                                <p class="card-title">Prova 2: @nota.Prova2 pts</p>
+                                <p class="card-title">Prova 3: @nota.Prova3 pts</p>
+                                <p class="card-title">Trabalho: @nota.Trabalho pts</p>
+                                <h5 class="card-title">Notal Total: @nota.NotaTotal pts</h5>
+                                <a class="btn btn-primary w-100" asp-action="AcessarNotaDaMateria" asp-controller="Aluno" asp-route-id="@nota.Id">Acessar</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="container w-100">
+                <h1 class="text-lg-center">O aluno não está matriculado em nenhuma matéria  ainda!</h1>
+            </div>
+        }
+
+    </div>
+</div>

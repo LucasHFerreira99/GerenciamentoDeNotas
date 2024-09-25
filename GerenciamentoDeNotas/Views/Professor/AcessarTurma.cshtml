@@ -1,0 +1,46 @@
+﻿@using System.Globalization
+@model List<NotaModel>
+
+@{
+    ViewData["Title"] = "Gerenciar a Turma";
+}
+
+
+
+<h1>Gerenciar Turma</h1>
+
+<form method="post" id="meuFormulario" asp-action="SalvarNotas">
+    <table class="table" id="TabelaAlunosNota">
+        @if (Model.Any())
+        {
+            <thead>
+                <tr>
+                    <th class="text-center">Nome</th>
+                    <th class="text-center">1° Prova</th>
+                    <th class="text-center">2° Prova</th>
+                    <th class="text-center">3° Prova</th>
+                    <th class="text-center">Trabalho</th>
+                    <th class="text-center">Nota Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                    var nota = Model[i];
+
+                    <tr>
+                        <input type="hidden" name="notasAtualizada[@i].Id" id="test" value="@nota.Id" />
+                        <td>@Html.DisplayFor(modelItem => nota.Aluno.Nome)</td>
+                        <td><input type="number" min="0" max="30" step="0.1" name="notasAtualizada[@i].Prova1" value="@nota.Prova1.ToString("F1", CultureInfo.InvariantCulture)" class="form-control" /></td>
+                        <td><input type="number" min="0" max="30" step="0.1" name="notasAtualizada[@i].Prova2" value="@nota.Prova2.ToString("F1", CultureInfo.InvariantCulture)" class="form-control" /></td>
+                        <td><input type="number" min="0" max="30" step="0.1" name="notasAtualizada[@i].Prova3" value="@nota.Prova3.ToString("F1", CultureInfo.InvariantCulture)" class="form-control" /></td>
+                        <td><input type="number" min="0" max="10" step="0.1" name="notasAtualizada[@i].Trabalho" value="@nota.Trabalho.ToString("F1", CultureInfo.InvariantCulture)" class="form-control" /></td>
+                        <td><input type="number" disabled name="nota.NotaTotal" value="@nota.NotaTotal.ToString("F1", CultureInfo.InvariantCulture)" class="form-control" /></td>
+                    </tr>
+                }
+            </tbody>
+        }
+    </table>
+    <div><button type="submit" class="btn btn-primary w-100">Salvar</button></div>
+</form>
+

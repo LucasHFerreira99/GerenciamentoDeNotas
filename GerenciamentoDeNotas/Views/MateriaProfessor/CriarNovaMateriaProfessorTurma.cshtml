@@ -1,0 +1,48 @@
+﻿@model GerenciamentoDeNotas.DTOs.MateriasTurmasListarDto
+
+
+@{
+    ViewData["Title"] = "Adição a Professor";
+}
+
+
+<div class="text-center">
+    <h1 class="display-4 mb-4">Adicione uma Matéria e Turma ao @Model.Professor.Nome</h1>
+    <hr />
+    <div class="row justify-content-md-center">
+        <form method="post" asp-action="CriarNovaMateriaProfessorTurma" class="col-md-6">
+            <input type="hidden" id="IdProfessor" name="IdProfessor" value="@Model.Professor.Id" />
+
+            <div class="form-group mb-3">
+                <label for="IdTurma" class="form-label">Selecione uma Turma:</label>
+                <select id="IdTurma" name="IdTurma" class="form-select">
+                    @foreach (var turma in Model.Turmas)
+                    {
+                        <option value="@turma.Id">@turma.Nome</option>
+                    }
+                </select>
+            </div>
+
+            <div class="form-group mb-3">
+                <label for="IdMateria" class="form-label">Selecione uma Matéria:</label>
+                <select id="IdMateria" name="IdMateria" class="form-select">
+                    @foreach (var materia in Model.Materias)
+                    {
+                        <option value="@materia.Id">@materia.Nome</option>
+                    }
+                </select>
+            </div>
+
+            <div class="d-flex justify-content-between mt-4">
+                <input type="submit" value="Adicionar" class="btn btn-primary flex-fill me-2" />
+                <a asp-action="GerenciarTurmas" asp-route-id="@Model.Professor.Id" class="btn btn-secondary flex-fill">Voltar à Listagem</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
