@@ -75,7 +75,3 @@ Este é um software de gerenciamento de notas desenvolvido em **C#** com **.NET*
 
 Contribuições são bem-vindas! Se você encontrar algum bug ou quiser adicionar novas funcionalidades, sinta-se à vontade para abrir uma [issue](https://github.com/LucasHFerreira99/GerenciamentoDeNotas/issues) ou enviar um pull request.
 
-## Licença
-
-Este projeto está licenciado sob a Licença MIT.
-
