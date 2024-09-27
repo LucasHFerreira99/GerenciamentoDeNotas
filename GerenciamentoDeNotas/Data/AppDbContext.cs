@@ -17,6 +17,25 @@ namespace GerenciamentoDeNotas.Data
         public DbSet<ProfessorModel> Professores { get; set; }
         public DbSet<TurmaModel> Turmas { get; set; }
         public DbSet<MateriaProfessorModel> MateriaProfessor { get; set; }
-        public DbSet<UsuarioModel> Usuarios { get; set; }  
+        public DbSet<UsuarioModel> Usuarios { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            // Inserindo o ADMIN padrão automaticamente 
+            var adminPadrao = new UsuarioModel
+            {
+                UsuarioId = 1,
+                Nome = "Admin Padrão",
+                Login = "admin",
+                Senha = "admin",
+                Perfil = Enums.PerfilEnum.Admin,
+                Email = "admin@exemplo.com",
+                Cpf = "123456789-11"
+            };
+            adminPadrao.SetSenhaHash();
+            modelBuilder.Entity<UsuarioModel>().HasData(adminPadrao);
+        }
     }
 }
